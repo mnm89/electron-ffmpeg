@@ -1,0 +1,89 @@
+<div #container class="row mx-0 w-100 mat-elevation-z4 video-container">
+
+  <video id="video" #player poster="favicon.256x256.png" (play)="onPlay($event)" 
+  (pause)="onPause($event)" (ended)="onEnded($event)"
+    (timeupdate)="onTimeUpdate($event)" (error)="onError($event)">
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a
+      web browser that
+      <a href="http://videojs.com/html5-video-support/" target="_blank">
+        supports HTML5 video
+      </a>
+    </p>
+
+  </video>
+  <video id="fake" #audioplayer></video>
+  <div class="player-controls  py-4 px-2 text-center">
+    <div class="row mx-0 first">
+      <div class="col-md-2">
+        <button class="mx-1" *ngIf="!playing" (click)="play()" mat-mini-fab>
+          <mat-icon>play_circle_outline</mat-icon>
+        </button>
+        <button class="mx-1" *ngIf="playing" (click)="pause()" mat-mini-fab>
+          <mat-icon>pause_circle_outline</mat-icon>
+        </button>
+        <button class="mx-1" color="primary" (click)="stop()" mat-mini-fab>
+          <mat-icon>stop</mat-icon>
+        </button>
+
+      </div>
+      <div class="col-md-8">
+        <div class="prog pt-3 mx-3">
+          <mat-progress-bar mode="buffer" [value]="played_time" [bufferValue]="processing"></mat-progress-bar>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <button class="mx-1" (click)="toggleFullScreen()" color="light" mat-mini-fab>
+          <mat-icon>fullscreen</mat-icon>
+        </button>
+        <button class="mx-1" (click)="togglePlaylist()" color="light" mat-mini-fab>
+          <mat-icon *ngIf="!playlist_toggled">menu</mat-icon>
+          <mat-icon *ngIf="playlist_toggled">close</mat-icon>
+        </button>
+
+      </div>
+    </div>
+    <div class="row mx-0 mt-2">
+      <div  class="col-md-2">
+        <button *ngIf="false" class="mx-1" mat-mini-fab>
+          <mat-icon>skip_previous</mat-icon>
+        </button>
+        <button *ngIf="false" class="mx-1" mat-mini-fab>
+          <mat-icon>skip_next</mat-icon>
+        </button>
+      </div>
+      <div class="col-md-5">
+        <p class="text-white" *ngIf="ffprobData">
+            <b>File : </b> {{  ffprobData.format.filename  }} 
+        </p>
+        <p class="text-white" *ngIf="ffprobData">
+          <b>Format : </b> {{  ffprobData.format.format_long_name }}
+        </p>
+      </div>
+      <div *ngIf="hasAudiotrack()" class="col-md-3">
+        <button [disabled]="volume<=0" (click)="soundDown()" mat-mini-fab>
+          <mat-icon>volume_down</mat-icon>
+        </button>
+        <button class="mx-1" color="light" mat-mini-fab>{{ volume }}</button>
+        <button [disabled]="volume>=100" (click)="soundUp()" mat-mini-fab>
+          <mat-icon>volume_up</mat-icon>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div [ngClass]="{'d-none':!playlist_toggled,'animated fadeInRight':playlist_toggled }" class="playlist p-2">
+      <mat-list>
+          <mat-list-item  class="mat-elevation-z3 mb-1" *ngFor="let item of playList">
+            <h4 mat-line>{{item.name}}</h4>
+            <p mat-line> {{item.date | date}} </p>
+            <mat-progress-bar *ngIf="item.path===current.path" mode="buffer" [value]="played_time" [bufferValue]="processing"></mat-progress-bar>
+            <button *ngIf="item.path!==current.path" (click)="switchCurrent(item)" class="btn-success" color="success" mat-mini-fab><mat-icon>play_circle_outline</mat-icon></button>
+            <button *ngIf="item.path!==current.path" (click)="removeFromPlayList(item)" class="btn-danger" color="danger" mat-mini-fab><mat-icon>close</mat-icon></button>
+          </mat-list-item>
+      </mat-list>
+  </div>
+
+</div>

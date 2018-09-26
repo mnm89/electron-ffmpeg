@@ -1,0 +1,23 @@
+.logo{
+    height: 26px;
+    margin: 0 4px 3px 0;
+    vertical-align: middle;
+}
+.flex-spacer{
+    flex-grow: 1;
+    user-select: none;
+    -webkit-app-region: drag;
+    height: 50px;
+ 
+}
+.navbar-header{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 8px 16px;
+    background: #3f51b5;
+}
+a:hover{
+    color: unset;
+    text-decoration: unset
+}

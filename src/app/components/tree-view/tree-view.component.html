@@ -1,0 +1,18 @@
+<div class="row mx-0">
+  <mat-chip-list class="w-100">
+    <mat-chip class="mr-5" (click)="back()" color="light" selected>
+      <mat-icon>folder</mat-icon>..
+    </mat-chip>
+    <mat-chip class="ml-5" *ngIf="tree.childrens.length===0"  color="warn" selected>
+        No folder found
+      </mat-chip>
+  </mat-chip-list>
+</div>
+<mat-list>
+  <mat-list-item  (click)="onItemClicked(item)" class="mat-elevation-z3" *ngFor="let item of tree.childrens | treepipe:term">
+    <mat-icon color="primary" *ngIf="item.type==='D'" mat-list-icon>folder</mat-icon>
+    <mat-icon color="accent" *ngIf="item.type==='F'" mat-list-icon>insert_drive_file</mat-icon>
+    <h4 mat-line>{{item.name}}</h4>
+    <p mat-line> {{item.date | date}} </p>
+  </mat-list-item>
+</mat-list>

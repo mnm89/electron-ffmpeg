@@ -1,0 +1,53 @@
+<button (click)="toggleMenu()" style="position: absolute; z-index: 5;margin-top: -10px" color="warn" mat-mini-fab>
+    <mat-icon *ngIf="!menuclosed">close</mat-icon>
+    <mat-icon *ngIf="menuclosed">menu</mat-icon>
+</button>
+<div class="mx-3 my-2">
+  <div class="row mx-0">
+    <div [ngClass]="{'d-none': menuclosed}" class="col-md-4 menu">
+      <div #folderselection class="card px-1">
+        <input #inputSelectFolder type="file" style="display: none" (change)="onDirChange($event)" webkitdirectory />
+        <div class="row mx-0 mt-2 d-block">
+          <button (click)="inputSelectFolder.click()" color="primary" class=" " mat-raised-button>Select directory</button>
+          <button (click)="toggleFileList()" class="float-right" color="accent" mat-raised-button>
+            <mat-icon>insert_drive_file</mat-icon>
+            ({{ fileList.length }}) File found 
+            <mat-icon>keyboard_arrow_right</mat-icon>
+          </button>
+        </div>
+
+        <mat-form-field class="w-100 mt-2">
+          <input #inputFilterFolder type="text" matInput placeholder="Search">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+
+        <app-tree-view *ngIf="folderList" (itemClicked)="onSelectItem($event)" [tree]='folderList' [term]='inputFilterFolder.value'></app-tree-view>
+
+      </div>
+      <div #playlistselection class="card px-1 d-none">
+        <div class="row mx-0 mt-2 d-block">
+          <button (click)="toggleFolderList()" color="primary" class=" " mat-raised-button>
+            <mat-icon>keyboard_arrow_left</mat-icon>
+            <mat-icon>folder_open</mat-icon>
+          </button>
+
+        </div>
+        <mat-form-field class="w-100 mt-2">
+          <input #inputFilterFile type="text" matInput placeholder="Search">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+        <mat-list>
+          <mat-list-item  class="mat-elevation-z3" *ngFor="let item of fileList | treepipe:inputFilterFile.value ">
+            <mat-icon color="accent" *ngIf="item.type==='F'" mat-list-icon>insert_drive_file</mat-icon>
+            <h4 mat-line>{{item.name}}</h4>
+            <p mat-line> {{item.date | date}} </p>
+            <button (click)="addToPlaylist(item)" class="btn-success" color="success" mat-mini-fab><mat-icon>arrow_right_alt</mat-icon></button>
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </div>
+    <div [ngClass]="{'w-100': menuclosed,'col-md-8': !menuclosed}" >
+      <app-video-player ></app-video-player>
+    </div>
+  </div>
+</div>

@@ -36,7 +36,7 @@ export class ElectronService {
 
 
       this.ffmpeg.setFfmpegPath(AppConfig.production ? ffmpegPath.replace('app.asar', 'app.asar.unpacked'):ffmpegPath );
-      this.ffmpeg.setFfprobePath(AppConfig.production ? ffprobePath.replace('app.asar', 'app.asar.unpacked'):ffmpegPath );
+      this.ffmpeg.setFfprobePath(AppConfig.production ? ffprobePath.replace('app.asar', 'app.asar.unpacked'):ffprobePath );
 
     }
   }

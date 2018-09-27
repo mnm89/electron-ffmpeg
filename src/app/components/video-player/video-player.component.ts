@@ -53,6 +53,7 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
+    if(this.command)
     this.command.kill()
     if(this.hasAudiotrack())
     this.commandAudio.kill()

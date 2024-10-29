@@ -12,10 +12,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { MatCardModule } from "@angular/material/card";
-
+import { MatTooltip, MatTooltipModule } from "@angular/material/tooltip";
 import { LayoutModule } from "@angular/cdk/layout";
 
 @NgModule({
+  imports: [MatTooltip],
   exports: [
     MatGridListModule,
     MatTreeModule,
@@ -31,6 +32,7 @@ import { LayoutModule } from "@angular/cdk/layout";
     MatChipsModule,
     MatSnackBarModule,
     MatCardModule,
+    MatTooltipModule,
   ],
 })
 export class MaterialModule {}

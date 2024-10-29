@@ -2,15 +2,12 @@ import {
   Component,
   OnInit,
   OnDestroy,
-  Input,
   ViewChild,
   ElementRef,
   NgZone,
 } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { AppState } from "../../../store/state";
-import { ChildrenTree } from "../../../helpers";
-import { REMOVE_FROM_LOCAL_PLAY_LIST } from "../../../store/Local/reducer";
 import { ElectronService } from "../../../core/services";
 
 @Component({
@@ -19,19 +16,13 @@ import { ElectronService } from "../../../core/services";
   styleUrls: ["./video-player.component.scss"],
 })
 export class VideoPlayerComponent implements OnInit, OnDestroy {
-  @ViewChild("player") player!: ElementRef<HTMLMediaElement>;
-  @ViewChild("audioplayer") audioplayer!: ElementRef<HTMLMediaElement>;
-  @ViewChild("container") playerContainer!: ElementRef<HTMLDivElement>;
-
-  playList: Array<ChildrenTree> = [];
-  current: ChildrenTree = {
-    path: "",
-    name: "",
-    type: "",
-  };
+  @ViewChild("player", { static: true }) player!: ElementRef<HTMLMediaElement>;
+  @ViewChild("audioplayer", { static: true })
+  audioplayer!: ElementRef<HTMLMediaElement>;
+  @ViewChild("container", { static: true })
+  playerContainer!: ElementRef<HTMLDivElement>;
 
   playing: boolean = false;
-  playlist_toggled: boolean = false;
 
   media_duration!: number;
   processing!: number;
@@ -43,14 +34,8 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
   ffprobData: any;
   constructor(
     private store: Store<AppState>,
-    private electronService: ElectronService,
-    private zone: NgZone
-  ) {
-    this.store.select("LOCAL").subscribe((state) => {
-      this.playlist_toggled = state.toggle_playlist;
-      this.playList = state.playlist;
-    });
-  }
+    private electronService: ElectronService
+  ) {}
 
   ngOnDestroy(): void {
     if (this.command) this.command.kill();
@@ -146,16 +131,14 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     );
   }
 
-  switchCurrent(item: ChildrenTree) {
-    this.current = item;
+  switchCurrent(item: File) {
+    //    this.current = item;
     if (this.command) this.command.kill();
     if (this.hasAudiotrack()) this.commandAudio.kill();
     this.stop();
-    this.prepareMediaSource(this.current.path);
+    //  this.prepareMediaSource(this.current.path);
   }
-  removeFromPlayList(item: ChildrenTree) {
-    this.store.dispatch({ type: REMOVE_FROM_LOCAL_PLAY_LIST, payload: item });
-  }
+
   hasAudiotrack(): boolean {
     if (this.ffprobData)
       return (
@@ -199,9 +182,6 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
       this.playerContainer.nativeElement.requestFullscreen();
     }
   }
-  togglePlaylist() {
-    this.playlist_toggled = !this.playlist_toggled;
-  }
 
   //// video events
   onPlay(event: any) {
@@ -222,11 +202,11 @@ export class VideoPlayerComponent implements OnInit, OnDestroy {
     console.log(event);
   }
   onEnded(event: any) {
-    var index = this.playList.findIndex((x) => x.path === this.current.path);
+    /*   var index = this.playList.findIndex((x) => x.path === this.current.path);
     if (index + 1 < this.playList.length)
       setTimeout(() => {
         this.switchCurrent(this.playList[index + 1]);
       }, 20);
-    console.log(index, this.playList.length);
+    console.log(index, this.playList.length); */
   }
 }

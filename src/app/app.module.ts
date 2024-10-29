@@ -2,7 +2,6 @@ import "reflect-metadata";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
 
 import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
@@ -11,13 +10,11 @@ import { RouterModule } from "@angular/router";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { ComponentsModule } from "./shared/components/components.module";
-
 import { AppComponent } from "./app.component";
 import { routes } from "./app.routing";
-import { MaterialModule } from "./shared/material/material.module";
 import { AppStoreModule } from "./store/store.module";
 import { CoreModule } from "./core/core.module";
+import { SharedModule } from "./shared/shared.module";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -30,7 +27,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    FormsModule,
+    SharedModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -39,9 +36,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
-    ComponentsModule,
+
     RouterModule.forRoot(routes, { useHash: true }),
-    MaterialModule,
+
     AppStoreModule,
   ],
   providers: [],

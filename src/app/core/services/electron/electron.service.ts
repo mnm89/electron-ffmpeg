@@ -39,6 +39,7 @@ export class ElectronService {
         }
         console.log(`stdout:\n${stdout}`);
       });
+      this.ffmpeg = window.require("fluent-ffmpeg");
       var ffmpegPath = window.require("@ffmpeg-installer/ffmpeg").path;
       var ffprobePath = window.require("@ffprobe-installer/ffprobe").path;
 

@@ -34,7 +34,4 @@ export class AppComponent {
       console.log("Mode web");
     }
   }
-  currentPath = this.store
-    .select("LOCAL")
-    .pipe(map((state) => (state.tree ? state.tree.path : "None")));
 }

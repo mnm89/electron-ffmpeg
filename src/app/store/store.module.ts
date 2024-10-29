@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { StoreModule, MetaReducer, ActionReducer } from "@ngrx/store";
 import { AppState } from "./state";
 import { APP_CONFIG } from "../../environments/environment";
-import { AppAction } from "../helpers";
-import { localReducer } from "./Local/reducer";
+import { playListReducer } from "./play-list/reducer";
 
 function debug(reducer: ActionReducer<any>): ActionReducer<any> {
   return function (state, action) {
@@ -29,9 +28,9 @@ export const metaReducers: MetaReducer<AppState>[] = APP_CONFIG.production
   : [debug];
 @NgModule({
   imports: [
-    StoreModule.forRoot<AppState, AppAction>(
+    StoreModule.forRoot<AppState, any>(
       {
-        LOCAL: localReducer,
+        PlayList: playListReducer,
       },
       { metaReducers }
     ),

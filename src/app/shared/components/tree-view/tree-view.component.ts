@@ -35,7 +35,6 @@ export class TreeViewComponent {
       this.itemClicked.emit({
         name: path.basename(path.join(this.tree.path, "..")),
         path: path.join(this.tree.path, ".."),
-        type: "D",
       });
     }
   }

@@ -2,14 +2,6 @@
 
   <video id="video" #player poster="assets/icons/favicon.256x256.png" (play)="onPlay($event)" (pause)="onPause($event)"
     (ended)="onEnded($event)" (timeupdate)="onTimeUpdate($event)" (error)="onError($event)">
-    <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a
-      web browser that
-      <a href="http://videojs.com/html5-video-support/" target="_blank">
-        supports HTML5 video
-      </a>
-    </p>
-
   </video>
   <video id="fake" #audioplayer></video>
   <div class="player-controls  py-4 px-2 text-center">

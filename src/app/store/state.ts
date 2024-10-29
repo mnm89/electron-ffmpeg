@@ -1,5 +1,5 @@
-import { LocalState } from "./Local/reducer";
+import { State as PlayListState } from "./play-list/reducer";
 
 export interface AppState {
-   LOCAL:LocalState
+  PlayList: PlayListState;
 }

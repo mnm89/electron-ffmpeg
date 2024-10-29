@@ -10,9 +10,18 @@ import { FtpComponent } from "./ftp/ftp.component";
 import { StreamingComponent } from "./streaming/streaming.component";
 import { RouterModule } from "@angular/router";
 import { VideoPlayerComponent } from "./video-player/video-player.component";
+import { DirectivesModule } from "../directives/directives.module";
+import { PipesModule } from "../pipes/pipes.module";
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, MaterialModule, RouterModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    MaterialModule,
+    RouterModule,
+    DirectivesModule,
+    PipesModule,
+  ],
   declarations: [
     LocalDiskComponent,
     TopBarComponent,
@@ -22,6 +31,14 @@ import { VideoPlayerComponent } from "./video-player/video-player.component";
     StreamingComponent,
     VideoPlayerComponent,
   ],
-  exports: [TopBarComponent],
+  exports: [
+    LocalDiskComponent,
+    TopBarComponent,
+    TreeViewComponent,
+    TreePipe,
+    FtpComponent,
+    StreamingComponent,
+    VideoPlayerComponent,
+  ],
 })
 export class ComponentsModule {}

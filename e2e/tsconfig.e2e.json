@@ -3,10 +3,11 @@
   "compilerOptions": {
     "outDir": "../out-tsc/e2e",
     "module": "commonjs",
-    "target": "es5",
-    "types":[
-      "jasmine",
+    "types": [
       "node"
     ]
-  }
+  },
+  "include": [
+    "**.spec.ts"
+  ],
 }

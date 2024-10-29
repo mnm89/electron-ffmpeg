@@ -1,38 +1,38 @@
 {
-  "productName": "VideoSAFE Viewer",
+  "asar": true,
   "directories": {
     "output": "release/"
   },
-    "files": [
-        "**/*",
-        "!*.ts",
-        "!*.code-workspace",
-        "!LICENSE.md",
-        "!package.json",
-        "!package-lock.json",
-        "!src/",
-        "!e2e/",
-        "!hooks/",
-        "!.angular-cli.json",
-        "!_config.yml",
-        "!karma.conf.js",
-        "!tsconfig.json",
-        "!tslint.json"
-    ],
+  "files": [
+    "**/*",
+    "!**/*.ts",
+    "!*.map",
+    "!package.json",
+    "!package-lock.json",
+    {
+      "from": "../dist",
+      "filter": [
+        "**/*"
+      ]
+    }
+  ],
   "win": {
-    "icon": "dist",
+    "icon": "dist/assets/icons",
     "target": [
       "portable"
     ]
   },
+  "portable": {
+    "splashImage": "dist/assets/icons/electron.bmp"
+  },
   "mac": {
-    "icon": "dist",
+    "icon": "dist/assets/icons",
     "target": [
       "dmg"
     ]
   },
   "linux": {
-    "icon": "dist",
+    "icon": "dist/assets/icons",
     "target": [
       "AppImage"
     ]

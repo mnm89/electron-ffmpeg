@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
-    "inlineSourceMap": true,
+    "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
+    "module": "commonjs",
+    "target": "es2015",
+    "types": [
+      "node"
     ],
     "lib": [
       "es2017",
@@ -16,8 +17,9 @@
       "dom"
     ]
   },
-  "include": [
-    "main.ts"
+  "files": [
+    "app/main.ts",
+    "app/preload.ts"
   ],
   "exclude": [
     "node_modules",

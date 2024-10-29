@@ -3,9 +3,10 @@ declare var nodeModule: NodeModule;
 interface NodeModule {
   id: string;
 }
-
-declare var window: Window;
 interface Window {
-  process: any;
-  require: any;
+  electronAPI: {
+    onMediaFileSaved: (callback: (filePath: string) => void) => void;
+    selectVideo: () => string | null;
+    startStreaming: (path: string) => void;
+  };
 }

@@ -1,37 +1,38 @@
-import { Component } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
-import { Store } from "@ngrx/store";
-import { AppState } from "./store/state";
-import { map } from "rxjs/operators";
-import { ElectronService } from "./core/services";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"],
 })
-export class AppComponent {
-  constructor(
-    private store: Store<AppState>,
-    public electronService: ElectronService,
-    private translate: TranslateService
-  ) {
+export class AppComponent implements AfterViewInit {
+  @ViewChild("videoElement", { static: true })
+  videoElement!: ElementRef<HTMLVideoElement>;
+
+  constructor(private translate: TranslateService) {
     this.translate.setDefaultLang("en");
-    if (electronService.isElectron) {
-      /*  const fs = electronService.fs;
-      var ct: ChildrenTree;
-      if(localStorage.getItem("LAST_FOLDER"))
-       ct=JSON.parse(localStorage.getItem("LAST_FOLDER")!)
-      else
-       ct = {
-        name: "home",
-        path: app.getPath("home"),
-        date: fs.statSync(app.getPath("home")).mtime,
-        type: "D"
-      }
-      this.store.dispatch({type:CURRENT_TREE,payload:ct}) */
+  }
+  ngAfterViewInit(): void {
+    const video = this.videoElement.nativeElement;
+    // Handle video element errors
+    video.addEventListener("error", (e) => {
+      console.error("Video element error:", video.error);
+    });
+    // Receive Blob URL and set as video source
+    window.electronAPI.onMediaFileSaved((filePath: string) => {
+      video.src = `file://${filePath}`;
+      video.play();
+    });
+  }
+  async selectVideo() {
+    // Open file dialog and get selected video path
+    const filePath = await window.electronAPI.selectVideo();
+    if (filePath) {
+      console.log("Selected file path:", filePath);
+      // Start streaming with the selected video
+      window.electronAPI.startStreaming(filePath);
     } else {
-      console.log("Mode web");
+      console.log("No file selected");
     }
   }
 }

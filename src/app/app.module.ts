@@ -9,6 +9,11 @@ import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
+import { VgCoreModule } from "@videogular/ngx-videogular/core";
+import { VgControlsModule } from "@videogular/ngx-videogular/controls";
+import { VgOverlayPlayModule } from "@videogular/ngx-videogular/overlay-play";
+import { VgBufferingModule } from "@videogular/ngx-videogular/buffering";
+
 import { AppComponent } from "./app.component";
 
 // AoT requires an exported function for factories
@@ -29,6 +34,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    VgCoreModule,
+    VgOverlayPlayModule,
+    VgControlsModule,
+    VgBufferingModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -35,7 +35,9 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [],
+            "styles": [
+              "node_modules/@videogular/ngx-videogular/fonts/videogular.css"
+            ],
             "scripts": [],
             "customWebpackConfig": {
               "path": "./angular.webpack.js",

@@ -1,0 +1,25 @@
+.video-container {
+  width: 80%;
+  margin: auto;
+}
+
+.playlist {
+  margin-top: 20px;
+}
+
+.playlist ul {
+  list-style: none;
+  padding: 0;
+}
+
+.playlist li {
+  cursor: pointer;
+  padding: 5px;
+  margin-bottom: 5px;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.playlist li:hover {
+  background: #ddd;
+}
